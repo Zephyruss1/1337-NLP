@@ -1,5 +1,13 @@
-from core_nlp.engine import MorphAnalyzer
+import sys
+from pathlib import Path
+from pprint import pprint
 
-# Example usage of morph analyzer
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from core_nlp.src.engine import MorphAnalyzer
+
 morph_analyzer = MorphAnalyzer()
-print(morph_analyzer.analyze("görebiliyorum"))
+
+pprint(morph_analyzer.analyze("görebiliyorum"))
+print()
+pprint(morph_analyzer.analyze("geldim"))
