@@ -55,7 +55,7 @@ pythonpath = ["."]
 preview = true
 target-version = "py311"
 line-length = 120
-indent-width = 4
+indent-width = 2
 exclude = [
     ".git/",
     ".venv/",
@@ -66,7 +66,12 @@ exclude = [
 [tool.ruff.lint]
 select = [
     "F",      # Pyflakes
-    "E",      # pycodestyle errors
+    "E2",     # pycodestyle whitespace errors
+    "E3",     # pycodestyle blank line errors
+    "E4",     # pycodestyle import errors
+    "E5",     # pycodestyle line length
+    "E7",     # pycodestyle statement errors
+    "E9",     # pycodestyle runtime errors
     "W",      # pycodestyle warnings
     "UP",     # pyupgrade
     "C4",     # flake8-comprehensions
