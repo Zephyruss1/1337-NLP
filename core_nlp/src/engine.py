@@ -47,8 +47,6 @@ class MorphAnalyzer:
     for i in range(1, len(suffix) + 1):
       part = suffix[:i]
       rest = suffix[i:]
-      print(part)
-      print(rest)
 
       # Check if 'part' is a valid suffix in our rules
       if part in self.rules_by_add:
