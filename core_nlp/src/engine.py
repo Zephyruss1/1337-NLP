@@ -47,6 +47,8 @@ class MorphAnalyzer:
     for i in range(1, len(suffix) + 1):
       part = suffix[:i]
       rest = suffix[i:]
+      print(part)
+      print(rest)
 
       # Check if 'part' is a valid suffix in our rules
       if part in self.rules_by_add:
@@ -162,6 +164,7 @@ class MorphAnalyzer:
           if not word.startswith(root):
             continue
 
+          # TODO: Remove dueue unused variable
           suffix_list: list = []
           suffix = word[len(root) :]
           suffix_list.append(suffix)
@@ -191,17 +194,17 @@ class MorphAnalyzer:
               # If it matches our word, we found an analysis
               if expected_word == word:
                 # Now try to granularly split the 'add' part
-                splits = self._recursive_split(modified_root, add)
-                best_match = self._select_best_match(splits)
+                possible_splits = self._recursive_split(modified_root, add)
+                best_match = self._select_best_match(possible_splits)
                 if not best_match:
                   best_match = [[add]]
 
                 # Add analysis for each valid split
-                for split in splits:
+                for possible_split in possible_splits:
                   analyses.append({
                     "root": root,
                     "stem": add,
-                    "suffixes": split,
+                    "suffixes": possible_split,
                     "flag_number": flag,
                   })
 
