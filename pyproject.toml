@@ -1,17 +1,92 @@
 [project]
 name = "core-nlp"
 version = "0.1.0"
-description = "Add your description here"
+description = "Turkish Morphological Analyzer - NLP toolkit for agglutinative languages"
 readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
 dependencies = [
     "huggingface>=0.0.1",
     "regex>=2025.9.1",
     "unicodedata2>=16.0.0",
 ]
 
+[project.optional-dependencies]
+linting = [
+    "pylint",
+    "mypy",
+    "typing-extensions",
+    "pre-commit",
+    "ruff>=0.14.9",
+]
+testing = [
+    "pytest>=8.4.1",
+    "pytest-xdist",
+    "pytest-timeout",
+]
+
 [dependency-groups]
 dev = [
-    "pytest>=8.4.1",
-    "ruff>=0.12.11",
+    "core-nlp[linting,testing]",
 ]
+
+# ============================================
+# Tool Configuration
+# ============================================
+
+[tool.pytest.ini_options]
+testpaths = ["core_nlp/tests"]
+norecursedirs = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "data",
+]
+timeout = 300
+timeout_method = "thread"
+timeout_func_only = true
+filterwarnings = [
+    # Ignore deprecation warnings from dependencies
+    "ignore::DeprecationWarning",
+]
+pythonpath = ["."]
+
+[tool.ruff]
+preview = true
+target-version = "py311"
+line-length = 120
+indent-width = 4
+exclude = [
+    ".git/",
+    ".venv/",
+    "__pycache__/",
+    "data/",
+]
+
+[tool.ruff.lint]
+select = [
+    "F",      # Pyflakes
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "UP",     # pyupgrade
+    "C4",     # flake8-comprehensions
+    "RET",    # flake8-return
+    "A",      # flake8-builtins
+]
+
+[tool.ruff.lint.per-file-ignores]
+"core_nlp/examples/**/*.py" = ["E501", "F401", "F841"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+warn_unused_configs = true
+files = ["core_nlp"]
+ignore_missing_imports = true
+check_untyped_defs = true
+explicit_package_bases = true
+warn_unreachable = true
+warn_redundant_casts = true
+strict_equality = true
