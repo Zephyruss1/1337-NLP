@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any
 from dataloader import load_aff, load_dic
 from exceptions import MorphologicalException
 from pathlib import Path
@@ -76,7 +76,7 @@ class MorphAnalyzer:
       return []
 
     # Build a quick lookup set of all valid suffix strings from self.rules
-    known_suffixes: set[Unknown] = set()
+    known_suffixes: set[str] = set()
     for flag_rules in self.rules.values():
       for rule in flag_rules:
         # Add the suffix string (the 'add' part) to our known list
@@ -87,7 +87,7 @@ class MorphAnalyzer:
     # (Turkish specific: y, n, s, ş, t for buffering or causality)
     known_suffixes.update({"y", "n", "s", "m", "k", "z", "l"})
 
-    scored_candidates: list[Unknown] = []
+    scored_candidates: list[tuple[float, list[str]]] = []
 
     for candidate in list_of_possible_matches:
       score = 0
@@ -123,7 +123,7 @@ class MorphAnalyzer:
     best_score = scored_candidates[0][0]
     return [cand for s, cand in scored_candidates if s == best_score]
 
-  def analyze(self, sentences: str) -> list[Union[dict[str, Any], str]]:
+  def analyze(self, sentences: str) -> list[dict[str, Any] | str]:
     """
     Perform morphological analysis on Turkish words to identify their roots and suffixes.
     Args:
@@ -145,7 +145,7 @@ class MorphAnalyzer:
     Raises:
         MorphologicalException.ANALYZE_ERROR: If an analysis error occurs during processing
     """
-    analyses: list[Union[dict[str, Any], str]] = []
+    analyses: list[dict[str, Any] | str] = []
     list_of_sentences: list[str] = [word.lower() for word in sentences.split(" ")]
     word: str = ""
 
