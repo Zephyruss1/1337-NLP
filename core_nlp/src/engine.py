@@ -1,6 +1,6 @@
 from typing import Any
-from .dataloader import load_aff, load_dic
-from .exceptions import MorphologicalException
+from dataloader import load_aff, load_dic
+from exceptions import MorphologicalException
 from pathlib import Path
 import re
 
