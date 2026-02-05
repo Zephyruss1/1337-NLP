@@ -4,6 +4,7 @@ from pathlib import Path
 
 _ROOT_PATH: Path = Path(__file__).parent.parent
 
+
 class TestDataloader(unittest.TestCase):
     @unittest.expectedFailure
     def test_load_aff(self) -> None:
@@ -12,5 +13,3 @@ class TestDataloader(unittest.TestCase):
     @unittest.expectedFailure
     def test_load_dic(self) -> None:
         self.assertEqual(load_dic(_ROOT_PATH / "data" / "tr_TR.dic"), {})
-
-
