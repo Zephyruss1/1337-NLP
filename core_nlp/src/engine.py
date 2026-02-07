@@ -161,12 +161,7 @@ class MorphAnalyzer:
           # Check if word starts with this root
           if not word.startswith(root):
             continue
-
-          # TODO: Remove dueue unused variable
-          suffix_list: list = []
-          suffix = word[len(root) :]
-          suffix_list.append(suffix)
-
+          
           # Check each flag associated with this root
           for flag in flags.get("flags", set()):
             if flag not in self.rules:
