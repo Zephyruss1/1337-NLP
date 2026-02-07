@@ -127,23 +127,23 @@ class MorphAnalyzer:
     """
     Perform morphological analysis on Turkish words to identify their roots and suffixes.
     Args:
-        sentences: A space-separated string of Turkish words to analyze (lowercase conversion applied)
+      sentences: A space-separated string of Turkish words to analyze (lowercase conversion applied)
 
     Returns:
-        A list where each element is either:
-        - dict: A valid morphological analysis containing:
-            - 'root': The base dictionary form of the word
-            - 'stem': The combined suffix string applied to the root
-            - 'suffixes': A list of individual suffix components (recursively split)
-            - 'flag_number': The morphological rule flag that was applied
-        - str: An error message if no valid analysis was found for a word
+      A list where each element is either:
+      - dict: A valid morphological analysis containing:
+        - 'root': The base dictionary form of the word
+        - 'stem': The combined suffix string applied to the root
+        - 'suffixes': A list of individual suffix components (recursively split)
+        - 'flag_number': The morphological rule flag that was applied
+      - str: An error message if no valid analysis was found for a word
 
     Example:
-        >>> MorphAnalyzer().analyze("göremedim")
-        [{'root': 'gör', 'stem': 'emedim', 'suffixes': ['e', 'me', 'di', 'm'], 'flag_number': '19944'}]
+      >>> MorphAnalyzer().analyze("göremedim")
+      [{'root': 'gör', 'stem': 'emedim', 'suffixes': ['e', 'me', 'di', 'm'], 'flag_number': '19944'}]
 
     Raises:
-        MorphologicalException.ANALYZE_ERROR: If an analysis error occurs during processing
+      MorphologicalException.ANALYZE_ERROR: If an analysis error occurs during processing
     """
     analyses: list[dict[str, Any] | str] = []
     list_of_sentences: list[str] = [word.lower() for word in sentences.split(" ")]
@@ -161,7 +161,7 @@ class MorphAnalyzer:
           # Check if word starts with this root
           if not word.startswith(root):
             continue
-          
+
           # Check each flag associated with this root
           for flag in flags.get("flags", set()):
             if flag not in self.rules:
